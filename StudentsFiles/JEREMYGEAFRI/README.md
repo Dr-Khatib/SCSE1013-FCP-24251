@@ -1,1 +1,3 @@
-
+- 👋 Hi, I’m Jeremy
+- 🌱 I’m currently learning Software Engineer
+- ⚡ Fun fact: I lack sleep
