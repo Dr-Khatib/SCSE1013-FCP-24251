@@ -19,5 +19,5 @@ I love solving problems, building innovative startups, and coding applications t
 - Solving real-world problems using tech.
 
 ### 📫 Reach Me:
-- [LinkedIn](your-linkedin-url)
-- [Email](your-email-address)
+- [LinkedIn](https://www.linkedin.com/in/md-emon-63b63b307?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
+- [Email](mdemon242530@gmail,com)
