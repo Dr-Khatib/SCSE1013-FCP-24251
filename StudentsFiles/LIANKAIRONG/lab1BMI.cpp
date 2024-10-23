@@ -8,7 +8,7 @@ int main(){
     cout <<"Enter your height(in meters) : ";
     cin >> height;
     BMI = weight/(height*height);
-    cout <<"Your BMI is: "<<BMI;
+    cout <<"Your BMI is:"<<BMI;
 
     return 0;
 }
