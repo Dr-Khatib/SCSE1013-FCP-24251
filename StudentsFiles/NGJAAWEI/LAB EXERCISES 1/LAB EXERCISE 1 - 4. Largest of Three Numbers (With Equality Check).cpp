@@ -24,7 +24,7 @@ int main ()
 
     else
     {
-    	cout << a << " is not the largest."
+    	cout << a << " is not the largest.";
 	}
 
     return 0;
