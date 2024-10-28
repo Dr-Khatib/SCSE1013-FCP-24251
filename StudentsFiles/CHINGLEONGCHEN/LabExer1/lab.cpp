@@ -1,11 +1,9 @@
-#include <iostream>
-using namespace std ;
- 
- int main (){
 
-cout << "lalalala";
-cout<<"hello my wolr d";
-cout << "hijoijij";
+#include <iostream>
+
+int main() {
+  
+    std::cout << "Try programiz.pro";
+
     return 0;
-    
- }
+}
