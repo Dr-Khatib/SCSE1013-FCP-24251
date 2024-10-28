@@ -15,7 +15,7 @@ int main ()
         cout << integer << " is negative.";
     
     else
-        cout << integer << "is zero.";
+        cout << integer << " is zero.";
 
     return 0;
 }
