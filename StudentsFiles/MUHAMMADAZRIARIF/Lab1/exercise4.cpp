@@ -3,7 +3,6 @@ using namespace std;
 int main(){
     //declare
     int number1, number2, number3;
-    bool largest, tied;
     
     //getting input
     cout << "Enter three numbers: ";
