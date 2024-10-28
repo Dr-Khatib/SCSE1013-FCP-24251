@@ -25,9 +25,13 @@ int main() {
     double product = num1 * num2;
     cout << "Product: " << product << endl;
 
-    // Calculate and display the quotient
+   // Calculate and display the quotient
+    if (num2 != 0) {
     double quotient = num1 / num2; 
     cout << "Quotient: " << quotient << endl;
+    } else { 
+        cout << "Quotient: Undefined" << endl;
+    }
     
 
     return 0;
