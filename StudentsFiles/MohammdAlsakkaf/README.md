@@ -9,7 +9,7 @@
 
 - 🌱 I’m currently learning Software Engineering **SCSE1013-FCP-24251**
 
-- 🤝 I’m looking for help with Organizing the Arab Civilizations Event (cultural showcase) **Yemeni Culture Event**
+- 🤝 I’m looking for help with Organizing the Arab Civilizations Event (cultural showcase) **Arabic Culture Event**
 
 - 📫 How to reach me **zoer4019@gmail.com**
 
