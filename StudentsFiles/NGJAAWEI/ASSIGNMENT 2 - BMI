@@ -1,0 +1,18 @@
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+using namespace std;
+
+int main()
+{
+    double weight, height, BMI;
+
+    cout << "Enter your weight (in kg): "    ; cin >> weight;
+    cout << "Enter your height (in meters): "; cin >> height;
+
+    BMI = weight / (pow(height, 2));
+
+    cout << "Your BMI is: " << fixed << setprecision(2) << BMI; 
+
+    return 0;
+}
