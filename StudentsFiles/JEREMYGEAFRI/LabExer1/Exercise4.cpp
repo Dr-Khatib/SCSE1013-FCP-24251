@@ -3,7 +3,7 @@ using namespace std;
 int main()
 {
     cout << "Enter three numbers: " << endl ;
-    int num1, num2, num3 = 0;
+    int num1, num2, num3 ;
     cin >> num1 >> num2 >> num3 ;
     if (num1>num2 && num2>3)
     cout << num1 << " is the greatest number." <<endl;
