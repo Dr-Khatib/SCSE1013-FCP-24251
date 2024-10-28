@@ -12,20 +12,10 @@ int main(){
     //getting full name
     cout << "Enter your full name: ";
     getline (cin, fullName);
-    
-    // getting a legit birth year
-    while (term > 0)
-    {
-        cout << "Enter your birth year: ";
-        cin >> birthYear;
-        if (birthYear > 2024 || birthYear < 0)
-        {
-            cout << "Enter your real birth year\n";
-        }
-        else{
-            term = 0;
-        }
-    }
+
+    cout << "Enter your birth year: ";
+    cin >> birthYear;
+
     //calculate age
     age = 2024 - birthYear;
 
