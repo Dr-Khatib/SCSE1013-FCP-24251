@@ -16,9 +16,10 @@ int main() {
     string product[max] = {};
     float unitPrice[max] = {}, totalPrice[max] = {}, grandTotal = 0.0;
 
+
     for (i = 0; i < max; i++) {
         while (choice != 2) {
-             cout << "\nCashier System \n1. Add Product to Bill \n2. Display Final Bill and Exit \nEnter your choice: ";
+            cout << "\nCashier System \n1. Add Product to Bill \n2. Display Final Bill and Exit \nEnter your choice: ";
             cin >> choice;
             cin.ignore();
 
@@ -46,16 +47,20 @@ int main() {
                 }
                 
                 totalProduct++;
+                break;
             }
             else if (choice == 2) 
                 break;
             else
                 cout << "ERROR: Invalid choice, please input valid choice";
         }
+        if (choice == 2) 
+            break;
     }
     
     cout << "\nFinal Bill: \nProduct\t| Unit Price\t| Quantity\t| Total Cost (Discount Applied)";
     cout << "\n----------------------------------------------------------------------";
+
     for (i = 0; i < totalProduct; i++) {
         cout << fixed << setprecision(2);
         cout << "\n" << product[i] << "\t| $" << unitPrice[i] << "\t\t| " << productQuantity[i] << "\t\t| $" << totalPrice[i];
