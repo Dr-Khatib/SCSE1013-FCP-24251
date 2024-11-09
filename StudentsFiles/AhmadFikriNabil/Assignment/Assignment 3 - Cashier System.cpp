@@ -35,11 +35,11 @@ int main() {
 
                 if  (productQuantity[i] > 10) {
                     totalPrice[i] = 0.9 * (unitPrice[i] * productQuantity[i]);
-                    cout << "Product added with a 10%% discount\n";
+                    cout << "Product added with a 10% discount\n";
                 }
                 else if (productQuantity[i] >= 5) {
                     totalPrice[i] = 0.95 * (unitPrice[i] * productQuantity[i]);
-                    cout << "Product added with a 5%% discount\n";
+                    cout << "Product added with a 5% discount\n";
                 }
                 else {
                     totalPrice[i] = unitPrice[i] * productQuantity[i];
