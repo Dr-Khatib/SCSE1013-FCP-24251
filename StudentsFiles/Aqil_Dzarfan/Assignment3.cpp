@@ -12,7 +12,7 @@ int main()
 {
     // declare vector to store products
     vector<string> ProductName;
-    vector<double> UnitPrice;
+    vector<double> UnitPrice; // I use double for precision
     vector<int> QuantityPurchased;
 
     bool menu = true; // condition to allow the program to repeat
@@ -88,6 +88,7 @@ int main()
 
                 total += PriceAfterDisc;
 
+                // another fancy output formatting
                 cout << "\n"
                      << setw(25) << left << ProductName.at(index)
                      << "| $" << setw(10) << fixed << setprecision(2) << UnitPrice.at(index)
@@ -102,7 +103,7 @@ int main()
             break;
 
         default:
-            cout << "\nInvalid number. Please Try Again" << endl; // just in case if the user accidentally inputted wrong number
+            cout << "\nInvalid number. Please Try Again" << endl; // just in case if the user mis-input
         }
     }
     return 0;
