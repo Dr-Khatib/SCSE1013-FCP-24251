@@ -1,84 +1,109 @@
+/*
+AQIL DZARFAN BIN ASRUL SHARAFF
+"If it works, don't touch it"
+*/
+
 #include <iostream>
 #include <vector>
 #include <iomanip>
 using namespace std;
 
-int main(){
-    
+int main()
+{
+    // declare vector to store products
     vector<string> ProductName;
     vector<double> UnitPrice;
     vector<int> QuantityPurchased;
-    
-    bool menu = true;
-    double total = 0;
-    
+
+    bool menu = true; // condition to allow the program to repeat
+    double total = 0.0;
+
     int choice;
     int index;
     double PriceAfterDisc;
-    
+
     string stringinput;
     int intinput;
     double doubleinput;
 
-    while (menu == true){
-    
-    cout << "\nCashier System\n";
-    cout << "1. Add Product to Bill\n";
-    cout << "2. Display Final Bill and Exit\n";
-    cout << "Enter your choice: ";
-    cin >> choice;
+    while (menu == true)
+    {
 
-    switch (choice){
+        // main menu
+        cout << "\nCashier System\n";
+        cout << "1. Add Product to Bill\n";
+        cout << "2. Display Final Bill and Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
         case 1:
+            // gather product data
             cout << "\nEnter Product Name: ";
-            cin >> stringinput;
-            
+            cin >> stringinput; // who cares about error handling
+
             cout << "Enter Unit Price: ";
             cin >> doubleinput;
-            
+
             cout << "Enter Quantity Purchased: ";
             cin >> intinput;
-            
+
+            // inform the customer if the item elegible for discounts
+            if (intinput > 10)
+                cout << "Product added with a 10%" << " discount" << endl;
+
+            else if (intinput >= 5)
+                cout << "Product added with a 5%" << " discount" << endl;
+
+            // store the gathered data into vector
             ProductName.push_back(stringinput);
             UnitPrice.push_back(doubleinput);
             QuantityPurchased.push_back(intinput);
 
             break;
-        
+
         case 2:
+            // just some fancy output formatting
+            cout << "\nFinal Bill:\n";
 
-            // output formatting
-            cout << "Final Bill:\n"; 
-
-            cout << "Product " << setw(30) 
-                << "| Unit Price " << setw(5) 
-                << "| Quantity "
-                << "| Total Cost (Discount Applied)";
-            
+            cout << setw(25) << left << "Product " << setw(5)
+                 << "| Unit Price "
+                 << "| Quantity "
+                 << "| Total Cost (Discount Applied)";
             cout << "\n--------------------------------------------------------------------------------";
 
-            for (index = 0; index < ProductName.size(); index++){
+            // this for-statement is used calculate, total(discount applied) and print all of the product
+            for (index = 0; index < ProductName.size(); index++)
+            {
 
                 if (QuantityPurchased.at(index) > 10)
                     PriceAfterDisc = QuantityPurchased.at(index) * UnitPrice.at(index) * 0.9;
 
                 else if (QuantityPurchased.at(index) >= 5)
                     PriceAfterDisc = QuantityPurchased.at(index) * UnitPrice.at(index) * 0.95;
-                
+
                 else
                     PriceAfterDisc = QuantityPurchased.at(index) * UnitPrice.at(index);
-            
-                cout << "\n" << ProductName.at(index) << setw(25) 
-                    << "| " << UnitPrice.at(index) << " " << setw(5)
-                    << "| " << QuantityPurchased.at(index) << " "
-                    << "| " << PriceAfterDisc;
+
+                total += PriceAfterDisc;
+
+                cout << "\n"
+                     << setw(25) << left << ProductName.at(index)
+                     << "| $" << setw(10) << fixed << setprecision(2) << UnitPrice.at(index)
+                     << "| " << setw(9) << QuantityPurchased.at(index)
+                     << "| $" << PriceAfterDisc;
             }
-            
+
             cout << "\n--------------------------------------------------------------------------------";
-            
-            menu = false;
-    }
-        
+            cout << "\nGrand Total Amount Due: $" << fixed << setprecision(2) << total;
+
+            menu = false; // to make sure the program doesnt repeat
+            break;
+
+        default:
+            cout << "\nInvalid number. Please Try Again" << endl; // just in case if the user accidentally inputted wrong number
+        }
     }
     return 0;
 }
