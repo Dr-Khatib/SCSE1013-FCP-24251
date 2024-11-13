@@ -108,7 +108,7 @@ double apply_membership_discount(double total) {
     cout << "Does the customer have a membership? (yes/no): ";
     cin >> has_membership;
 
-    if (has_membership == "yes" || has_membership == "Yes") {
+    if (has_membership == "y" || has_membership == "Y") {
         cout << "2.5% membership discount applied." << endl;
         return total * 0.025;
     }
@@ -144,6 +144,8 @@ void display_final_bill(Product products[], int product_count, double membership
              << "$" << setw(20) << fixed << setprecision(2) << products[i].discounted_price << endl;
         grand_total += products[i].discounted_price;
     }
+      
+      cout << "-------------------------------------------------------------" << endl;
 
     cout << "\nMembership Discount: " << fixed << setprecision(1) << (membership_discount / grand_total * 100) << "%" << endl;
     cout << "Voucher Discount: " << fixed << setprecision(1) << (voucher_discount / grand_total * 100) << "%" << endl;
