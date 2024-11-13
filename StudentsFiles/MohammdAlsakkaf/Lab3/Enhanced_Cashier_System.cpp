@@ -105,7 +105,7 @@ Product add_product() {
 
 double apply_membership_discount(double total) {
     string has_membership;
-    cout << "Does the customer have a membership? (yes/no): ";
+    cout << "Does the customer have a membership? write ( (y) for yes / (n) for no ): ";
     cin >> has_membership;
 
     if (has_membership == "y" || has_membership == "Y") {
