@@ -158,7 +158,7 @@ double add_product(double &total)
 			
 			cout << "-------------------------------------------------------------------------------\n";
 			cout << "Membership Discount: " << member << "%\n";
-			cout << "Voucher Dsicount: " << voucher << "%\n";
+			cout << "Voucher Discount: " << voucher << "%\n";
 			cout << "-------------------------------------------------------------------------------\n";
 			cout << "Grand Total Amount Due: $" << total << endl;
 		
