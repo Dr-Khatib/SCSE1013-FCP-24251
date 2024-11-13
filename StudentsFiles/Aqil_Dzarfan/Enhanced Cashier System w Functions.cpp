@@ -3,7 +3,6 @@ AQIL DZARFAN BIN ASRUL SHARAFF
 "If it works, don't touch it"
 
 wip enhanced cashier system
-
 */
 
 #include <iostream>
@@ -23,6 +22,7 @@ vector<string> ProductName;
 vector<double> UnitPrice; // I use double for precision
 vector<int> QuantityPurchased;
 
+// function prototypes
 void add_product();
 void apply_membership_discount();
 void apply_voucher_discount();
@@ -92,9 +92,9 @@ void add_product()
 void apply_membership_discount()
 {
     cout << "Does the customer have a membership? (Y/n): ";
-    cin << choice;
+    cin << doubleinput;
 
-    discount += (choice == 'Y' || 'y') ? 2.5 : ;
+    discount += (doubleinput == 'Y' || 'y') ? 2.5 : 0;
 }
 
 void apply_voucher_discount()
