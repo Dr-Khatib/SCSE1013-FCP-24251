@@ -18,12 +18,12 @@ int main ()
 
 	do
 	{
-		cout << "Cashier System"                 << endl
+	    cout << "Cashier System"                 << endl
 	         << "1. Add Product to Bill"         << endl
 	         << "2. Apply Membership Discount"   << endl
 	         << "3. Apply Vouncher Discount"     << endl
 	         << "4. Display Final Bill and Exit" << endl
-             << "Enter your choice: ";
+                 << "Enter your choice: ";
 	    cin  >> MenuC;
 	    cout << endl;
 	    
@@ -65,10 +65,10 @@ double add_product ()
 	DPrice = UPrice * QPurchased * ((100 - Discount) / 100.0);
 	
 	outBills << setw(10) << left                             << PName      << " | $"
-			 << setw(9)  << left << fixed << setprecision(2) << UPrice     << " | "
-			 << setw(8)  << left                             << QPurchased << " | $"
-			 << setw(9)  << left                             << DPrice     << endl
-			 << "-----------------------------------------------------------------" << endl;
+		 << setw(9)  << left << fixed << setprecision(2) << UPrice     << " | "
+		 << setw(8)  << left                             << QPurchased << " | $"
+		 << setw(9)  << left                             << DPrice     << endl
+		 << "-----------------------------------------------------------------" << endl;
 	
 	return DPrice;
 }
