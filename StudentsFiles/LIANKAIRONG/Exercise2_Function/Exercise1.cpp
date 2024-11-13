@@ -15,5 +15,5 @@ int main() {
 }
 
 void greet() {   //This is user-defined function with no parameters and no return value
-    cout << "Hello from greet function!" << endl;
+    cout << "Hello from greet functions!" << endl;
 }
