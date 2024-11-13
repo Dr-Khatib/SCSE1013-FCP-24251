@@ -9,7 +9,7 @@ int main() {
     cin >> num;
 
     powered = pow(num,2);
-    cout << "The square of num is " << powered << endl;
+    cout << "The power of num is " << powered << endl;
 
     return 0;
 }
