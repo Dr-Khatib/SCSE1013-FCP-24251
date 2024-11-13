@@ -12,7 +12,7 @@ int main() {
     return 0;
 }
 
-int triple(int a){ // Function definition
+int triple(int a){ //  Function definition
     return 3*a;
 }
 
