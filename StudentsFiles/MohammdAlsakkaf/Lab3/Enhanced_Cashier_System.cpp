@@ -3,11 +3,8 @@
 #include <iomanip>
 
 using namespace std;
+const int MAX_PRODUCTS = 100;
 
-// Constants
-const int MAX_PRODUCTS = 100; // Maximum number of products
-
-// Struct to store product details
 struct Product {
     string name;
     double unit_price;
@@ -15,7 +12,6 @@ struct Product {
     double discounted_price;
 };
 
-// Function prototypes
 Product add_product();
 double apply_membership_discount(double total);
 double apply_voucher_discount(double total);
@@ -41,7 +37,7 @@ int main() {
         if (option == 1) {
             if (product_count < MAX_PRODUCTS) {
                 Product product = add_product();
-                products[product_count++] = product; // Store product in array
+                products[product_count++] = product;
                 total_bill += product.discounted_price;
             } else {
                 cout << "Product list is full! Cannot add more products." << endl;
@@ -65,7 +61,6 @@ int main() {
     return 0;
 }
 
-// Function to add product details and calculate discounted price
 Product add_product() {
     Product product;
     cout << "\nEnter product name: ";
@@ -77,18 +72,16 @@ Product add_product() {
 
     double subtotal = product.unit_price * product.quantity;
 
-    // Apply quantity discount
     if (product.quantity > 10) {
-        subtotal *= 0.9; // 10% discount
+        subtotal *= 0.9; 
     } else if (product.quantity >= 5) {
-        subtotal *= 0.95; // 5% discount
+        subtotal *= 0.95;
     }
 
     product.discounted_price = subtotal;
     return product;
 }
 
-// Function to apply membership discount
 double apply_membership_discount(double total) {
     char has_membership;
     cout << "Does the customer have a membership? (y/n): ";
@@ -100,17 +93,15 @@ double apply_membership_discount(double total) {
     return 0.0;
 }
 
-// Function to apply voucher discount (up to 5%)
 double apply_voucher_discount(double total) {
     double voucher;
     cout << "Enter voucher discount percentage (max 5%): ";
     cin >> voucher;
 
-    if (voucher > 5) voucher = 5; // Limit discount to 5%
+    if (voucher > 5) voucher = 5; 
     return total * (voucher / 100);
 }
 
-// Function to display final bill with all details and total amount due
 void display_final_bill(Product products[], int product_count, double membership_discount, double voucher_discount) {
     double grand_total = 0.0;
 
