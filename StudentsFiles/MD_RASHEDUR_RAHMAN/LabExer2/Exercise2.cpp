@@ -1,4 +1,3 @@
-
 /*Exercise 2: Library Function Usage
 Complete the program by entering a number and observing the use of the library function:
 */
