@@ -10,17 +10,14 @@ wip enhanced cashier system
 #include <iomanip>
 
 using namespace std;
+struct Product
+{
+    string name;
+    double unitPrice;
+    int quantity;
+};
 
-string stringinput;
-int intinput;
-double doubleinput;
-
-double discount;
-
-// declare vector to store products
-vector<string> ProductName;
-vector<double> UnitPrice; // I use double for precision
-vector<int> QuantityPurchased;
+vector<Product> products;
 
 // function prototypes
 void add_product();
@@ -28,14 +25,17 @@ void apply_membership_discount();
 void apply_voucher_discount();
 void display_final_bill();
 
+bool membershipDiscount = false;
+bool voucherDiscount = false;
+double voucherDiscountValue;
+
 int main()
 {
-    bool menu = true; // condition to allow the program to repeat
+    bool menu = true;
     int choice;
 
     while (menu == true)
     {
-
         // main menu
         cout << "\nCashier System\n";
         cout << "1. Add Product to Bill\n";
@@ -73,50 +73,89 @@ int main()
 
 void add_product()
 {
+    Product product;
+
     // gather product data
-    cout << "\nEnter Product Name: ";
-    cin >> stringinput; // who cares about error handling
+    cout << "Enter Product Name: ";
+    cin >> product.name;
 
     cout << "Enter Unit Price: ";
-    cin >> doubleinput;
+    cin >> product.unitPrice;
+
+    while (product.unitPrice <= 0)
+    {
+        cout << "Error: Unit Price must be greater than 0\nEnter Unit Price: ";
+        cin >> product.unitPrice;
+    }
 
     cout << "Enter Quantity Purchased: ";
-    cin >> intinput;
+    cin >> product.quantity;
 
-    // store the gathered data into vector
-    ProductName.push_back(stringinput);
-    UnitPrice.push_back(doubleinput);
-    QuantityPurchased.push_back(intinput);
+    while (product.quantity <= 0)
+    {
+        cout << "Error: Quantity must be greater than 0\nEnter Quantity Purchased: ";
+        cin >> product.unitPrice;
+    }
 
-    stringinput = " "; // reset these variable value
-    doubleinput = 0.0;
-    intinput = 0;
+    // inform the customer if the item elegible for discounts
+    if (product.quantity > 10)
+        cout << "Product added with a 10% bulk discount";
+
+    else if (product.quantity >= 5)
+        cout << "Product added with a 5% bulk discount";
+
+    // push product data into vector
+    products.push_back(product);
 }
 
 void apply_membership_discount()
 {
-    cout << "Does the customer have a membership? (Y/n): ";
-    cin >> stringinput;
+    char input;
 
-    if (stringinput == "Y" || stringinput == "y")
+    if (membershipDiscount == !false)
     {
-        discount += 2.5;
-        cout << "2.5% Membership Discount Applied!";
+        cout << "Membership Discount Already Added!";
+        exit(0);
     }
+
     else
-        cout << "No Discount Applied";
+    {
+        cout << "Does the customer have a membership? (Y/n): ";
+        cin >> input;
+
+        if (input == 'Y' || input == 'y')
+        {
+            cout << "2.5% Membership Discount Applied!";
+            membershipDiscount = true;
+        }
+
+        else
+            cout << "Membership Required";
+    }
 }
 
 void apply_voucher_discount()
 {
-    cout << "Apply voucher discounts(max 5%): ";
-    cin >> doubleinput;
+    if (voucherDiscount == !false)
+        cout << "Voucher Discount Already Added";
+    else
+    {
+        cout << "Apply voucher discounts(max 5%): ";
+        cin >> voucherDiscountValue;
 
-    discount += doubleinput;
+        while (voucherDiscountValue > 5 || voucherDiscountValue <= 0)
+        {
+            cout << "Error: Discount value must be between 0 and 5\nApply voucher discounts(max 5%): ";
+            cin >> voucherDiscountValue;
+        }
+        voucherDiscount = true;
+    }
 }
 
 void display_final_bill()
 {
+    double total, PriceAfterDisc;
+
     // just some fancy output formatting
     cout << "\nFinal Bill:\n";
 
