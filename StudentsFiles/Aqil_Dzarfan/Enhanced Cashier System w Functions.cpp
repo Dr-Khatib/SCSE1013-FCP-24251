@@ -87,20 +87,30 @@ void add_product()
     ProductName.push_back(stringinput);
     UnitPrice.push_back(doubleinput);
     QuantityPurchased.push_back(intinput);
+
+    stringinput = " "; // reset these variable value
+    doubleinput = 0.0;
+    intinput = 0;
 }
 
 void apply_membership_discount()
 {
     cout << "Does the customer have a membership? (Y/n): ";
-    cin << doubleinput;
+    cin >> stringinput;
 
-    discount += (doubleinput == 'Y' || 'y') ? 2.5 : 0;
+    if (stringinput == "Y" || stringinput == "y")
+    {
+        discount += 2.5;
+        cout << "2.5% Membership Discount Applied!";
+    }
+    else
+        cout << "No Discount Applied";
 }
 
 void apply_voucher_discount()
 {
     cout << "Apply voucher discounts(max 5%): ";
-    cin << doubleinput;
+    cin >> doubleinput;
 
     discount += doubleinput;
 }
