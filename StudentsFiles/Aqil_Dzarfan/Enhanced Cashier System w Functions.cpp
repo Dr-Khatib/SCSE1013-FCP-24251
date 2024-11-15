@@ -2,7 +2,7 @@
 AQIL DZARFAN BIN ASRUL SHARAFF
 "If it works, don't touch it"
 
-painfull enhanced cashier system
+painful enhanced cashier system
 */
 
 #include <iostream>
@@ -106,7 +106,7 @@ void add_product()
         cout << "Product added with a 5% bulk discount\n";
 
     // push product data into vector
-    products.push_back(product);
+    products.emplace_back(product);
 }
 
 void apply_membership_discount()
@@ -186,10 +186,10 @@ void display_final_bill()
     cout << "\n--------------------------------------------------------------------------------";
 
     if (membershipDiscount != false)
-        cout << "Membership Discount: 2.5%\n";
+        cout << "\nMembership Discount: 2.5%\n";
 
     if (voucherDiscount != false)
-        cout << "Voucher Discount: " << fixed << setprecision(2) << voucherDiscountValue << "%\n";
+        cout << "\nVoucher Discount: " << fixed << setprecision(2) << voucherDiscountValue << "%\n";
 
     cout << "\n--------------------------------------------------------------------------------";
     cout << "\nGrand Total Amount Due: $" << fixed << setprecision(2) << total;
@@ -197,30 +197,31 @@ void display_final_bill()
 
 double priceAfterDiscount(int index)
 {
+    const auto quantity = products.at(index).quantity; // reduce lookups
     double result;
 
     if (membershipDiscount == false)
     {
-        if (products.at(index).quantity > 10)
-            result = products.at(index).unitPrice * products.at(index).quantity * (0.9 - voucherDiscountValue);
+        if (quantity > 10)
+            result = products.at(index).unitPrice * quantity * (0.9 - voucherDiscountValue);
 
-        else if (products.at(index).quantity >= 5)
-            result = products.at(index).unitPrice * products.at(index).quantity * (0.95 - voucherDiscountValue);
+        else if (quantity >= 5)
+            result = products.at(index).unitPrice * quantity * (0.95 - voucherDiscountValue);
 
         else
-            result = products.at(index).unitPrice * products.at(index).quantity * voucherDiscountValue;
+            result = products.at(index).unitPrice * quantity * voucherDiscountValue;
     }
 
     else
     {
-        if (products.at(index).quantity > 10)
-            result = products.at(index).unitPrice * products.at(index).quantity * (0.875 - voucherDiscountValue);
+        if (quantity > 10)
+            result = products.at(index).unitPrice * quantity * (0.875 - voucherDiscountValue);
 
-        else if (products.at(index).quantity >= 5)
-            result = products.at(index).unitPrice * products.at(index).quantity * (0.925 - voucherDiscountValue);
+        else if (quantity >= 5)
+            result = products.at(index).unitPrice * quantity * (0.925 - voucherDiscountValue);
 
         else
-            result = products.at(index).unitPrice * products.at(index).quantity * (0.975 - voucherDiscountValue);
+            result = products.at(index).unitPrice * quantity * (0.975 - voucherDiscountValue);
     };
     return result;
 }
