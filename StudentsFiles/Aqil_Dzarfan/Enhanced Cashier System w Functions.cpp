@@ -192,7 +192,7 @@ void apply_voucher_discount()
             cin >> voucherDiscountValue;
         }
         cout << "Voucher Discount Applied!\n";
-        voucherDiscountValue /= 100.0; // convert the value to 0.xx for easy calculation
+        voucherDiscountValue /= 100.0; // convert the value to 0.xxx for easy calculation
         voucherDiscount = true;
     }
 }
@@ -209,9 +209,13 @@ void display_final_bill()
     cout << "\n--------------------------------------------------------------------------------";
 
     // calculate and prints out the products and price
-    for (int index = 0; index < products.size(); index++)
+
+    //  to reduce lookups; "auto const&" means reference read-only variable
+    auto const &products_count = products.size();
+
+    for (int index = 0; index < products_count; index++)
     {
-        double finalPrice = priceAfterDiscount(index);
+        double const finalPrice = priceAfterDiscount(index);
 
         cout << "\n"
              << setw(25) << left << products.at(index).name
@@ -235,7 +239,7 @@ void display_final_bill()
     cout << "\nGrand Total Amount Due: $" << fixed << setprecision(2) << total;
 }
 
-double priceAfterDiscount(int index) // highly nested, I don't know how to reduce this
+double priceAfterDiscount(int const index) // highly nested, I don't know how to reduce this
 {
     //  to reduce lookups; "auto const&" means reference read-only variable
     auto const &quantity = products.at(index).quantity;
@@ -264,6 +268,6 @@ double priceAfterDiscount(int index) // highly nested, I don't know how to reduc
 
         else
             result = products.at(index).unitPrice * quantity * (0.975 - voucherDiscountValue);
-    };
+    }
     return result;
 }
