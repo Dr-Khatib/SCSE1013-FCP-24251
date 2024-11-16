@@ -104,6 +104,7 @@ void apply_membership_discount() {
         cout << "2.5% membership discount applied.";
     }
     else 
+        membershipDiscount = 0.0;
         cout << "No membership discount applied.";
 
 }
