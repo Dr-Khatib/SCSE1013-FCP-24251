@@ -82,7 +82,7 @@ void add_product()
 
     // gather product data
     cout << "\nEnter Product Name: ";
-    cin >> product.name;
+    getline(cin, product.name);
 
     cout << "Enter Unit Price: ";
     cin >> product.unitPrice;
