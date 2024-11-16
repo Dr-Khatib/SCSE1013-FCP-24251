@@ -125,11 +125,12 @@ void apply_membership_discount()
         cout << "Membership Discount Already Added!\n Do you wish to void Membership Discount? (Y/n): ";
         cin >> input;
 
-        //options to void the discount given
+        // options to void the discount given
         if (input == 'Y' || input == 'y')
             cout << "Membership Discount maintained!\n";
 
-        else if (input == 'N' || input == 'n') {
+        else if (input == 'N' || input == 'n')
+        {
             cout << "Membership Discount voided!\n";
             membershipDiscount = false;
         }
@@ -161,23 +162,24 @@ void apply_voucher_discount()
 {
     // check if the discount is already added
     if (voucherDiscount != false) // case 1: discount added
+    {
+        char input;
+        cout << "Voucher Discount Already Added!\n Do you wish to void Voucher Discount? (Y/n): ";
+        cin >> input;
+
+        // options to void the discount given
+        if (input == 'Y' || input == 'y')
+            cout << "Voucher Discount maintained!\n";
+
+        else if (input == 'N' || input == 'n')
         {
-            char input;
-            cout << "Voucher Discount Already Added!\n Do you wish to void Voucher Discount? (Y/n): ";
-            cin >> input;
-
-            //options to void the discount given
-            if (input == 'Y' || input == 'y')
-                cout << "Voucher Discount maintained!\n";
-
-            else if (input == 'N' || input == 'n') {
-                cout << "Voucher Discount voided!\n";
-                voucherDiscount = false;
-            }
-
-            else
-                cout << "Error: Invalid input\nReturning to the main menu";
+            cout << "Voucher Discount voided!\n";
+            voucherDiscount = false;
         }
+
+        else
+            cout << "Error: Invalid input\nReturning to the main menu";
+    }
     else // case 2: discount not yet added
     {
         cout << "\nApply voucher discounts(max 5%): ";
@@ -236,11 +238,11 @@ void display_final_bill()
 double priceAfterDiscount(int index) // highly nested, I don't know how to reduce this
 {
     //  to reduce lookups; "auto const&" means reference read-only variable
-    auto const& quantity = products.at(index).quantity;
+    auto const &quantity = products.at(index).quantity;
 
     double result;
 
-    if (membershipDiscount == false) //case 1: no membership discount
+    if (membershipDiscount == false) // case 1: no membership discount
     {
         if (quantity > 10)
             result = products.at(index).unitPrice * quantity * (0.9 - voucherDiscountValue);
@@ -252,7 +254,7 @@ double priceAfterDiscount(int index) // highly nested, I don't know how to reduc
             result = products.at(index).unitPrice * quantity * (1.0 - voucherDiscountValue);
     }
 
-    else //case 2: membership discount applied
+    else // case 2: membership discount applied
     {
         if (quantity > 10)
             result = products.at(index).unitPrice * quantity * (0.875 - voucherDiscountValue);
