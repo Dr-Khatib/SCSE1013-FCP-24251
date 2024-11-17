@@ -28,7 +28,7 @@ void add_product();
 void apply_membership_discount();
 void apply_voucher_discount();
 void display_final_bill();
-double priceAfterDiscount(int index);
+double priceAfterDiscount(int const index);
 
 bool membershipDiscount = false; // false means no discount
 bool voucherDiscount = false;
