@@ -199,8 +199,6 @@ void apply_voucher_discount()
 
 void display_final_bill()
 {
-    double total = 0;
-
     cout << "\nFinal Bill:\n"
          << setw(25) << left << "Product " << setw(5)
          << "| Unit Price "
@@ -213,6 +211,7 @@ void display_final_bill()
 
     //  to reduce lookups; "auto const&" means reference read-only variable
     auto const &products_count = products.size();
+    double total = 0;
 
     for (int index = 0; index < products_count; index++)
     {
@@ -260,6 +259,5 @@ double priceAfterDiscount(int const index)
                  : quantity >= 5 ? 0.925 - voucherDiscountValue
                  : 0.975 - voucherDiscountValue;
 
-    double const result = products.at(index).unitPrice * quantity * discount;
-    return result;
+    return products.at(index).unitPrice * quantity * discount;
 }
