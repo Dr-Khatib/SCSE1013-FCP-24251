@@ -42,12 +42,12 @@ int main()
     while (menu == true)
     {
         // main menu
-        cout << "\nCashier System\n";
-        cout << "1. Add Product to Bill\n";
-        cout << "2. Add Membership Discount\n";
-        cout << "3. Apply Voucher Discount\n";
-        cout << "4. Display Final Bill and Exit\n";
-        cout << "Enter your choice: ";
+        cout << "\nCashier System\n"
+             << "1. Add Product to Bill\n"
+             << "2. Add Membership Discount\n"
+             << "3. Apply Voucher Discount\n"
+             << "4. Display Final Bill and Exit\n"
+             << "Enter your choice: ";
         cin >> choice;
 
         switch (choice)
@@ -239,7 +239,7 @@ void display_final_bill()
     cout << "\nGrand Total Amount Due: $" << fixed << setprecision(2) << total;
 }
 
-double priceAfterDiscount(int const index) // highly nested, I don't know how to reduce this
+double priceAfterDiscount(int const index) // heavily nested, I don't know how to reduce this
 {
     //  to reduce lookups; "auto const&" means reference read-only variable
     auto const &quantity = products.at(index).quantity;
