@@ -82,7 +82,7 @@ void add_product()
 
     // gather product data
     cout << "\nEnter Product Name: ";
-    getline(cin, product.name);
+    cin >> product.name;
 
     cout << "Enter Unit Price: ";
     cin >> product.unitPrice;
@@ -201,11 +201,12 @@ void display_final_bill()
 {
     double total = 0;
 
-    cout << "\nFinal Bill:\n";
-    cout << setw(25) << left << "Product " << setw(5)
+    cout << "\nFinal Bill:\n"
+         << setw(25) << left << "Product " << setw(5)
          << "| Unit Price "
          << "| Quantity "
          << "| Total Cost (Discount Applied)";
+
     cout << "\n--------------------------------------------------------------------------------";
 
     // calculate and prints out the products and price
@@ -236,38 +237,29 @@ void display_final_bill()
         cout << "\nVoucher Discount: " << fixed << setprecision(2) << voucherDiscountValue * 100 << "%";
 
     cout << "\n--------------------------------------------------------------------------------";
+
+    // prints out total
     cout << "\nGrand Total Amount Due: $" << fixed << setprecision(2) << total;
 }
 
-double priceAfterDiscount(int const index) // heavily nested, I don't know how to reduce this
+double priceAfterDiscount(int const index)
 {
     //  to reduce lookups; "auto const&" means reference read-only variable
     auto const &quantity = products.at(index).quantity;
+    double discount;
 
-    double result;
+    // case 1: no membership discount
+    if (membershipDiscount == false)
+        discount = quantity > 10 ? 0.90 - voucherDiscountValue
+                 : quantity >= 5 ? 0.95 - voucherDiscountValue
+                 : 1.00 - voucherDiscountValue;
 
-    if (membershipDiscount == false) // case 1: no membership discount
-    {
-        if (quantity > 10)
-            result = products.at(index).unitPrice * quantity * (0.9 - voucherDiscountValue);
+    // case 2: membership discount applied
+    else
+        discount = quantity > 10 ? 0.875 - voucherDiscountValue
+                 : quantity >= 5 ? 0.925 - voucherDiscountValue
+                 : 0.975 - voucherDiscountValue;
 
-        else if (quantity >= 5)
-            result = products.at(index).unitPrice * quantity * (0.95 - voucherDiscountValue);
-
-        else
-            result = products.at(index).unitPrice * quantity * (1.0 - voucherDiscountValue);
-    }
-
-    else // case 2: membership discount applied
-    {
-        if (quantity > 10)
-            result = products.at(index).unitPrice * quantity * (0.875 - voucherDiscountValue);
-
-        else if (quantity >= 5)
-            result = products.at(index).unitPrice * quantity * (0.925 - voucherDiscountValue);
-
-        else
-            result = products.at(index).unitPrice * quantity * (0.975 - voucherDiscountValue);
-    }
+    double const result = products.at(index).unitPrice * quantity * discount;
     return result;
 }
