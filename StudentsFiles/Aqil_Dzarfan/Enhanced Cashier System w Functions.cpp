@@ -28,7 +28,7 @@ void add_product();
 void apply_membership_discount();
 void apply_voucher_discount();
 void display_final_bill();
-double priceAfterDiscount(int const index);
+double priceAfterDiscount(int index);
 
 bool membershipDiscount = false; // false means no discount
 bool voucherDiscount = false;
@@ -101,15 +101,14 @@ void add_product()
     while (product.quantity <= 0)
     {
         cout << "Error: Quantity must be greater than 0\nEnter Quantity Purchased: ";
-        cin >> product.unitPrice;
+        cin >> product.quantity;
     }
 
     // inform the customer if the item eligible for discounts
-    if (product.quantity > 10)
-        cout << "Product added with a 10% bulk discount\n";
-
-    else if (product.quantity >= 5)
-        cout << "Product added with a 5% bulk discount\n";
+    string const message = product.quantity > 10 ? "Product added with a 10% bulk discount\n"
+                         : product.quantity >= 5 ? "Product added with a 5% bulk discount\n"
+                         : "";
+    cout << message;
 
     // store product data into vector
     products.emplace_back(product);
@@ -175,6 +174,7 @@ void apply_voucher_discount()
         {
             cout << "Voucher Discount voided!\n";
             voucherDiscount = false;
+            voucherDiscountValue = 0.0;
         }
 
         else
