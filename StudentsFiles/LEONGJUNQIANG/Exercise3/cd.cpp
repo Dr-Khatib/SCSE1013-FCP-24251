@@ -137,16 +137,16 @@ void display_final_bill() {
 
     for (int i = 0; i < productcount; i++) {
         cout << left 
-             << setw(20) << p_name[i]
-             << setw(20) << fixed << setprecision(2) << price[i]
-             << setw(20) << quantity[i]
-             << setw(20) << fixed << setprecision(2) << totalcost[i] 
+             << "| " << setw(18) << p_name[i]
+             << "| RM"<< setw(16) << fixed << setprecision(2) << price[i]
+            << "| " << setw(18) << quantity[i]
+            << "| RM" << setw(28) << fixed << setprecision(2) << totalcost[i] 
              << "|\n";
     }
 
     cout << "-------------------------------------------------------------------------------------------\n";
-    cout << "Membership Discount: " << discount2 * 100 << "%\n";
-    cout << "Voucher Discount: " << discount3 << "%\n";
+    cout << setprecision(1) << fixed << "Membership Discount: " << discount2 * 100 << "%\n";
+    cout << setprecision(1)<< "Voucher Discount: " << discount3 << "%\n";
     cout << "-------------------------------------------------------------------------------------------\n";
     cout << setprecision(2) << fixed << "Grand Total: RM " << overall << "\n";
 }
