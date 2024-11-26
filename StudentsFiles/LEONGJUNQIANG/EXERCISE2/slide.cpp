@@ -12,7 +12,7 @@ int main(){
     double length,width,area;
 
     length = getLength();
-    width = getLength();
+    width = getWidth();
     area = getArea(length,width);
 
     displayData(length,width,area);
