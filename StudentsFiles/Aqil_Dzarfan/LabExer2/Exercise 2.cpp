@@ -1,4 +1,4 @@
-//The question is unclear
+// The question is unclear
 #include <iostream>
 #include <cmath>
 

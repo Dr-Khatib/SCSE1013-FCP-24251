@@ -25,7 +25,10 @@ vector<Product> products;
 
 // function prototypes
 void add_product();
+void informDiscount(int const quantity);
 void apply_membership_discount();
+void voidMemberDiscount(char const input);
+void addMemberDiscount(char const input);
 void apply_voucher_discount();
 void display_final_bill();
 double priceAfterDiscount(int index);
@@ -105,13 +108,19 @@ void add_product()
     }
 
     // inform the customer if the item eligible for discounts
-    string const message = product.quantity > 10 ? "Product added with a 10% bulk discount\n"
-                         : product.quantity >= 5 ? "Product added with a 5% bulk discount\n"
-                         : "";
-    cout << message;
+    informDiscount(product.quantity);
 
     // store product data into vector
     products.emplace_back(product);
+}
+
+void informDiscount(int const quantity)
+{
+    if (quantity > 10)
+        cout << "Product added with a 10% bulk discount\n";
+
+    else if (quantity >= 5)
+        cout << "Product added with a 5% bulk discount\n";
 }
 
 void apply_membership_discount()
@@ -125,17 +134,7 @@ void apply_membership_discount()
         cin >> input;
 
         // options to void the discount given
-        if (input == 'Y' || input == 'y')
-            cout << "Membership Discount maintained!\n";
-
-        else if (input == 'N' || input == 'n')
-        {
-            cout << "Membership Discount voided!\n";
-            membershipDiscount = false;
-        }
-
-        else
-            cout << "Error: Invalid input\nReturning to the main menu";
+        voidMemberDiscount(input);
     }
 
     else // case 2: discount not yet added
@@ -143,18 +142,38 @@ void apply_membership_discount()
         cout << "\nDoes the customer have a membership? (Y/n): ";
         cin >> input;
 
-        if (input == 'Y' || input == 'y')
-        {
-            cout << "2.5% Membership Discount Applied!\n";
-            membershipDiscount = true;
-        }
-
-        else if (input == 'N' || input == 'n')
-            cout << "Membership Required\n";
-
-        else
-            cout << "Error: Invalid input\nReturning to the main menu";
+        addMemberDiscount(input);
     }
+}
+
+void voidMemberDiscount(char const input, bool const discountType)
+{
+    if (input == 'Y' || input == 'y')
+        cout << "Membership Discount maintained!\n";
+
+    else if (input == 'N' || input == 'n')
+    {
+        cout << "Membership Discount voided!\n";
+        membershipDiscount = false;
+    }
+
+    else
+        cout << "Error: Invalid input\nReturning to the main menu";
+}
+
+void addMemberDiscount(char const input)
+{
+    if (input == 'Y' || input == 'y')
+    {
+        cout << "2.5% Membership Discount Applied!\n";
+        membershipDiscount = true;
+    }
+
+    else if (input == 'N' || input == 'n')
+        cout << "Membership Required\n";
+
+    else
+        cout << "Error: Invalid input\nReturning to the main menu";
 }
 
 void apply_voucher_discount()
