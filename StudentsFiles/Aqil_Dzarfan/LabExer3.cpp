@@ -3,9 +3,6 @@ AQIL DZARFAN BIN ASRUL SHARAFF
 "If it works, don't touch it"
 
 Enhanced Cashier System final
-
-if there's any logic error that I missed
-contact me on telegram
 */
 
 #include <iostream>
@@ -25,13 +22,14 @@ vector<Product> products;
 
 // function prototypes
 void add_product();
-void informDiscount(int const quantity);
+void inform_discount(int quantity);
 void apply_membership_discount();
-void voidMemberDiscount(char const input);
-void addMemberDiscount(char const input);
+void void_member_discount(char input);
+void add_member_discount(char input);
 void apply_voucher_discount();
+void void_voucher_discount(char input);
 void display_final_bill();
-double priceAfterDiscount(int index);
+double price_after_discount(int index);
 
 bool membershipDiscount = false; // false means no discount
 bool voucherDiscount = false;
@@ -108,13 +106,13 @@ void add_product()
     }
 
     // inform the customer if the item eligible for discounts
-    informDiscount(product.quantity);
+    inform_discount(product.quantity);
 
     // store product data into vector
     products.emplace_back(product);
 }
 
-void informDiscount(int const quantity)
+void inform_discount(const int quantity)
 {
     if (quantity > 10)
         cout << "Product added with a 10% bulk discount\n";
@@ -134,7 +132,7 @@ void apply_membership_discount()
         cin >> input;
 
         // options to void the discount given
-        voidMemberDiscount(input);
+        void_member_discount(input);
     }
 
     else // case 2: discount not yet added
@@ -142,11 +140,11 @@ void apply_membership_discount()
         cout << "\nDoes the customer have a membership? (Y/n): ";
         cin >> input;
 
-        addMemberDiscount(input);
+        add_member_discount(input);
     }
 }
 
-void voidMemberDiscount(char const input, bool const discountType)
+void void_member_discount(const char input)
 {
     if (input == 'Y' || input == 'y')
         cout << "Membership Discount maintained!\n";
@@ -161,7 +159,7 @@ void voidMemberDiscount(char const input, bool const discountType)
         cout << "Error: Invalid input\nReturning to the main menu";
 }
 
-void addMemberDiscount(char const input)
+void add_member_discount(const char input)
 {
     if (input == 'Y' || input == 'y')
     {
@@ -186,18 +184,7 @@ void apply_voucher_discount()
         cin >> input;
 
         // options to void the discount given
-        if (input == 'Y' || input == 'y')
-            cout << "Voucher Discount maintained!\n";
-
-        else if (input == 'N' || input == 'n')
-        {
-            cout << "Voucher Discount voided!\n";
-            voucherDiscount = false;
-            voucherDiscountValue = 0.0;
-        }
-
-        else
-            cout << "Error: Invalid input\nReturning to the main menu";
+        void_voucher_discount(input);
     }
     else // case 2: discount not yet added
     {
@@ -216,6 +203,21 @@ void apply_voucher_discount()
     }
 }
 
+void void_voucher_discount(const char input)
+{
+    if (input == 'Y' || input == 'y')
+        cout << "Voucher Discount maintained!\n";
+
+    else if (input == 'N' || input == 'n')
+    {
+        cout << "Voucher Discount voided!\n";
+        voucherDiscount = false;
+        voucherDiscountValue = 0.0;
+    }
+    else
+        cout << "Error: Invalid input\nReturning to the main menu";
+}
+
 void display_final_bill()
 {
     cout << "\nFinal Bill:\n"
@@ -229,12 +231,12 @@ void display_final_bill()
     // calculate and prints out the products and price
 
     //  to reduce lookups; "auto const&" means reference read-only variable
-    auto const &products_count = products.size();
+    const auto &products_count = products.size();
     double total = 0;
 
     for (int index = 0; index < products_count; index++)
     {
-        double const finalPrice = priceAfterDiscount(index);
+        const double finalPrice = price_after_discount(index);
 
         cout << "\n"
              << setw(25) << left << products.at(index).name
@@ -260,10 +262,10 @@ void display_final_bill()
     cout << "\nGrand Total Amount Due: $" << fixed << setprecision(2) << total;
 }
 
-double priceAfterDiscount(int const index)
+double price_after_discount(const int index)
 {
     //  to reduce lookups; "auto const&" means reference read-only variable
-    auto const &quantity = products.at(index).quantity;
+    const auto &quantity = products.at(index).quantity;
     double discount;
 
     // case 1: no membership discount
