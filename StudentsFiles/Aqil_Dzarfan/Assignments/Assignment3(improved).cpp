@@ -2,6 +2,7 @@
 AQIL DZARFAN BIN ASRUL SHARAFF
 "If it works, don't touch it"
 */
+//after learning a bit more c++, this is my improved version
 
 #include <iostream>
 #include <vector>
