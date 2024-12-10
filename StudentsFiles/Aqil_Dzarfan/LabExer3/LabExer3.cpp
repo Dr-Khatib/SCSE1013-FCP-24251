@@ -33,6 +33,7 @@ double price_after_discount(int index);
 
 bool membershipDiscount = false; // false means no discount
 bool voucherDiscount = false;
+
 double voucherDiscountValue = 0.0;
 
 int main()
@@ -134,7 +135,6 @@ void apply_membership_discount()
         // options to void the discount given
         void_member_discount(input);
     }
-
     else // case 2: discount not yet added
     {
         cout << "\nDoes the customer have a membership? (Y/n): ";
@@ -154,7 +154,6 @@ void void_member_discount(const char input)
         cout << "Membership Discount voided!\n";
         membershipDiscount = false;
     }
-
     else
         cout << "Error: Invalid input\nReturning to the main menu";
 }
@@ -270,15 +269,27 @@ double price_after_discount(const int index)
 
     // case 1: no membership discount
     if (membershipDiscount == false)
-        discount = quantity > 10 ? 0.90 - voucherDiscountValue
-                 : quantity >= 5 ? 0.95 - voucherDiscountValue
-                 : 1.00 - voucherDiscountValue;
+
+        if (quantity > 10)
+            discount = 0.90 - voucherDiscountValue;
+
+        else if (quantity >= 5)
+            discount = 0.95 - voucherDiscountValue;
+
+        else
+            discount = 1.00 - voucherDiscountValue;
 
     // case 2: membership discount applied
     else
-        discount = quantity > 10 ? 0.875 - voucherDiscountValue
-                 : quantity >= 5 ? 0.925 - voucherDiscountValue
-                 : 0.975 - voucherDiscountValue;
+
+        if (quantity > 10)
+            discount = 0.875 - voucherDiscountValue;
+
+        else if (quantity >= 5)
+            discount = 0.925 - voucherDiscountValue;
+
+        else
+           discount =  0.975 - voucherDiscountValue;
 
     return products.at(index).unitPrice * quantity * discount;
 }
