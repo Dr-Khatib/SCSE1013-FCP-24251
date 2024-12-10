@@ -5,9 +5,6 @@ using namespace std;
 
 int main()
 {
-    constexpr int numOfCountry = 4;
-    constexpr int numOfMedalType = 3;
-
     const string medalType[3] = {"Gold", "Silver", "Bronze"};
 
     int totalMedalCountry3 = 0;
@@ -18,12 +15,13 @@ int main()
 
     int temp;
 
-    for (int index1 = 0; index1 < numOfCountry; index1++)
+    for (int index1 = 0; index1 < 4; index1++)
     {
         cout << "Country " << index1 + 1 << endl;
-        for (int index2 = 0; index2 < numOfMedalType; index2++)
+        for (int index2 = 0; index2 < 3; index2++)
         {
-            int medal[numOfCountry][numOfMedalType];
+            int medal[4][3];
+            
             cout << "Enter number of " << medalType[index2] << " medal: ";
             cin >> temp;
 

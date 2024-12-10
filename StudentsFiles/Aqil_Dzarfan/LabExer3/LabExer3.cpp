@@ -289,7 +289,7 @@ double price_after_discount(const int index)
             discount = 0.925 - voucherDiscountValue;
 
         else
-           discount =  0.975 - voucherDiscountValue;
+            discount = 0.975 - voucherDiscountValue;
 
     return products.at(index).unitPrice * quantity * discount;
 }
