@@ -6,7 +6,7 @@ void readMed(int medals[4][3]) {
     for (int i = 0; i < 4; i++) {
         cout << "Enter medals for Country " << i + 1 << " (Gold, Silver, Bronze): ";
         for (int j = 0; j < 3; j++) {
-            cin >> medals[i][j];
+            cin >> medals[i][j]; 
         }
     }
 }
