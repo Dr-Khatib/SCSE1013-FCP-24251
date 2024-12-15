@@ -227,7 +227,7 @@ int highestGold (int MedalNum[][CountryNum][MedalType], int i)
 
 int totalBronze (int MedalNum[][CountryNum][MedalType], int i)
 {
-	int totalBronze;
+	int totalBronze = 0;
 	
 	for (int j = 0; j < CountryNum; j += 1)
 	{
