@@ -18,31 +18,22 @@ void calculateTotalBronzeMedals(int[][NUM_COUNTRIES][NUM_MEDAL_TYPES], int[], in
 int main() {
     int years[2500], numberOfYears;
     numberOfYears = getYears(years);
-
     int medals[numberOfYears][NUM_COUNTRIES][NUM_MEDAL_TYPES];
     cout << "Please enter the number of medals for each country for each year:\n";
     enterMedals(medals, years, numberOfYears);
-
     printMedalTable(medals, years, numberOfYears);
     cout << endl;
-
     calculateTotalForCountry3(medals, years, numberOfYears);
     cout << endl;
-
     findMaxMedals(medals, years, numberOfYears);
     cout << endl;
-
     findMinMedals(medals, years, numberOfYears);
     cout << endl;
-
     findMaxGoldMedals(medals, years, numberOfYears);
     cout << endl;
-
     calculateTotalBronzeMedals(medals, years, numberOfYears);
-
     return 0;
 }
-
 int getYears(int years[]) {
     cout << "Enter the years for analysis (type any letter after year to stop):\n";
     int count = 0;
@@ -58,21 +49,17 @@ int getYears(int years[]) {
         }
         count++;
     }
-
     if (count == 0) {
         cout << "No valid years entered. Exiting program." << endl;
         exit(0);
     }
-
     return count;
 }
-
 void printMedalType(int type) {
     if (type == 0) cout << "Gold   : ";
     else if (type == 1) cout << "Silver : ";
     else if (type == 2) cout << "Bronze : ";
 }
-
 void enterMedals(int medals[][NUM_COUNTRIES][NUM_MEDAL_TYPES], int years[], int numberOfYears) {
     for (int yearIndex = 0; yearIndex < numberOfYears; yearIndex++) {
         cout << "Year " << years[yearIndex] << ":\n";
@@ -94,7 +81,6 @@ void enterMedals(int medals[][NUM_COUNTRIES][NUM_MEDAL_TYPES], int years[], int 
         }
     }
 }
-
 void printMedalTable(int medals[][NUM_COUNTRIES][NUM_MEDAL_TYPES], int years[], int numberOfYears) {
     for (int yearIndex = 0; yearIndex < numberOfYears; yearIndex++) {
         cout << "\nYear: " << years[yearIndex] << "\n";
@@ -112,7 +98,6 @@ void printMedalTable(int medals[][NUM_COUNTRIES][NUM_MEDAL_TYPES], int years[], 
         cout << string(60, '-') << "\n";
     }
 }
-
 void calculateTotalForCountry3(int medals[][NUM_COUNTRIES][NUM_MEDAL_TYPES], int years[], int numberOfYears) {
     int totalAllYears = 0;
 
@@ -122,14 +107,11 @@ void calculateTotalForCountry3(int medals[][NUM_COUNTRIES][NUM_MEDAL_TYPES], int
         for (int medalType = 0; medalType < NUM_MEDAL_TYPES; medalType++) {
             yearlyTotal += medals[yearIndex][2][medalType];
         }
-
         cout << "Total medals won by Country 3 in " << years[yearIndex] << ": " << yearlyTotal << endl;
         totalAllYears += yearlyTotal;
     }
-
     cout << "Overall total medals won by Country 3: " << totalAllYears << endl;
 }
-
 void findMaxMedals(int medals[][NUM_COUNTRIES][NUM_MEDAL_TYPES], int years[], int numberOfYears) {
     int maxOverall = 0;
 
@@ -143,16 +125,13 @@ void findMaxMedals(int medals[][NUM_COUNTRIES][NUM_MEDAL_TYPES], int years[], in
                 }
             }
         }
-
         cout << "Max medals in year " << years[yearIndex] << ": " << maxYear << endl;
         if (maxYear > maxOverall) {
             maxOverall = maxYear;
         }
     }
-
     cout << "Max medals across all years: " << maxOverall << endl;
 }
-
 void findMinMedals(int medals[][NUM_COUNTRIES][NUM_MEDAL_TYPES], int years[], int numberOfYears) {
     int minOverall = medals[0][0][0];
 
@@ -166,16 +145,13 @@ void findMinMedals(int medals[][NUM_COUNTRIES][NUM_MEDAL_TYPES], int years[], in
                 }
             }
         }
-
         cout << "Min medals in year " << years[yearIndex] << ": " << minYear << endl;
         if (minYear < minOverall) {
             minOverall = minYear;
         }
     }
-
     cout << "Min medals across all years: " << minOverall << endl;
 }
-
 void findMaxGoldMedals(int medals[][NUM_COUNTRIES][NUM_MEDAL_TYPES], int years[], int numberOfYears) {
     int maxOverallGold = 0;
 
@@ -187,31 +163,22 @@ void findMaxGoldMedals(int medals[][NUM_COUNTRIES][NUM_MEDAL_TYPES], int years[]
                 maxYearGold = medals[yearIndex][country][0];
             }
         }
-
         cout << "Max gold medals in year " << years[yearIndex] << ": " << maxYearGold << endl;
         if (maxYearGold > maxOverallGold) {
             maxOverallGold = maxYearGold;
         }
     }
-
     cout << "Max gold medals across all years: " << maxOverallGold << endl;
 }
-
 void calculateTotalBronzeMedals(int medals[][NUM_COUNTRIES][NUM_MEDAL_TYPES], int years[], int numberOfYears) {
     int totalAllYears = 0;
-
     for (int yearIndex = 0; yearIndex < numberOfYears; yearIndex++) {
         int yearlyTotal = 0;
-
-        for (int country = 0; country < NUM_COUNTRIES; country++) {
+    for (int country = 0; country < NUM_COUNTRIES; country++) {
             yearlyTotal += medals[yearIndex][country][2];
         }
-
         cout << "Total bronze medals in year " << years[yearIndex] << ": " << yearlyTotal << endl;
         totalAllYears += yearlyTotal;
     }
-
     cout << "Overall total bronze medals: " << totalAllYears << endl;
 }
-
-
