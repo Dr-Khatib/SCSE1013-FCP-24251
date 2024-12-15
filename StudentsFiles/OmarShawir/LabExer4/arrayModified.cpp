@@ -1,9 +1,9 @@
 #include <iostream>
 using namespace std;
 
-const int countries = 4;      // Number of countries
-const int medalType = 3;      // Gold, Silver, Bronze
-const int years = 3;          // Number of years to track
+const int countries = 4;  
+const int medalType = 3;
+const int years = 3;
 
 void readMedals(int medals[years][countries][medalType]);
 int totalMedalsCountry3(const int medals[years][countries][medalType]);
@@ -46,7 +46,7 @@ int totalMedalsCountry3(const int medals[years][countries][medalType]) {
     int total = 0;
     for (int year = 0; year < years; ++year) {
         for (int j = 0; j < medalType; ++j) {
-            total += medals[year][2][j]; // Country 3 (index 2)
+            total += medals[year][2][j];
         }
     }
     return total;
@@ -81,10 +81,10 @@ int smallestMedals(const int medals[years][countries][medalType]) {
 }
 
 int highestGold(const int medals[years][countries][medalType]) {
-    int highest = medals[0][0][0]; // Start with the first country in the first year
+    int highest = medals[0][0][0];
     for (int year = 0; year < years; ++year) {
         for (int i = 0; i < countries; ++i) {
-            if (medals[year][i][0] > highest) {  // Gold is at index 0
+            if (medals[year][i][0] > highest) {
                 highest = medals[year][i][0];
             }
         }
@@ -96,7 +96,7 @@ int totalBronze(const int medals[years][countries][medalType]) {
     int total = 0;
     for (int year = 0; year < years; ++year) {
         for (int i = 0; i < countries; ++i) {
-            total += medals[year][i][2]; // Bronze is at index 2
+            total += medals[year][i][2]; 
         }
     }
     return total;
