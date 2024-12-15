@@ -206,11 +206,11 @@ void calculateTotalBronzeMedals(int medals[][NUM_COUNTRIES][NUM_MEDAL_TYPES], in
         for (int country = 0; country < NUM_COUNTRIES; country++) {
             yearlyTotal += medals[yearIndex][country][2];
         }
-
+        
         cout << "Total bronze medals in year " << years[yearIndex] << ": " << yearlyTotal << endl;
         totalAllYears += yearlyTotal;
     }
-
+    
     cout << "Overall total bronze medals: " << totalAllYears << endl;
 }
 
