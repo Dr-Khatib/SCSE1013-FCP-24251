@@ -3,9 +3,6 @@ AQIL DZARFAN BIN ASRUL SHARAFF
 "If it works, don't touch it"
 
 Enhanced Cashier System final
-
-if there's any logic error that I missed
-contact me on telegram
 */
 
 #include <iostream>
@@ -25,13 +22,18 @@ vector<Product> products;
 
 // function prototypes
 void add_product();
+void inform_discount(int quantity);
 void apply_membership_discount();
+void void_member_discount(char input);
+void add_member_discount(char input);
 void apply_voucher_discount();
+void void_voucher_discount(char input);
 void display_final_bill();
-double priceAfterDiscount(int index);
+double price_after_discount(int index);
 
 bool membershipDiscount = false; // false means no discount
 bool voucherDiscount = false;
+
 double voucherDiscountValue = 0.0;
 
 int main()
@@ -42,12 +44,12 @@ int main()
     while (menu == true)
     {
         // main menu
-        cout << "\nCashier System\n";
-        cout << "1. Add Product to Bill\n";
-        cout << "2. Add Membership Discount\n";
-        cout << "3. Apply Voucher Discount\n";
-        cout << "4. Display Final Bill and Exit\n";
-        cout << "Enter your choice: ";
+        cout << "\nCashier System\n"
+             << "1. Add Product to Bill\n"
+             << "2. Add Membership Discount\n"
+             << "3. Apply Voucher Discount\n"
+             << "4. Display Final Bill and Exit\n"
+             << "Enter your choice: ";
         cin >> choice;
 
         switch (choice)
@@ -82,7 +84,7 @@ void add_product()
 
     // gather product data
     cout << "\nEnter Product Name: ";
-    getline(cin, product.name);
+    cin >> product.name;
 
     cout << "Enter Unit Price: ";
     cin >> product.unitPrice;
@@ -101,18 +103,23 @@ void add_product()
     while (product.quantity <= 0)
     {
         cout << "Error: Quantity must be greater than 0\nEnter Quantity Purchased: ";
-        cin >> product.unitPrice;
+        cin >> product.quantity;
     }
 
     // inform the customer if the item eligible for discounts
-    if (product.quantity > 10)
-        cout << "Product added with a 10% bulk discount\n";
-
-    else if (product.quantity >= 5)
-        cout << "Product added with a 5% bulk discount\n";
+    inform_discount(product.quantity);
 
     // store product data into vector
     products.emplace_back(product);
+}
+
+void inform_discount(const int quantity)
+{
+    if (quantity > 10)
+        cout << "Product added with a 10% bulk discount\n";
+
+    else if (quantity >= 5)
+        cout << "Product added with a 5% bulk discount\n";
 }
 
 void apply_membership_discount()
@@ -126,36 +133,44 @@ void apply_membership_discount()
         cin >> input;
 
         // options to void the discount given
-        if (input == 'Y' || input == 'y')
-            cout << "Membership Discount maintained!\n";
-
-        else if (input == 'N' || input == 'n')
-        {
-            cout << "Membership Discount voided!\n";
-            membershipDiscount = false;
-        }
-
-        else
-            cout << "Error: Invalid input\nReturning to the main menu";
+        void_member_discount(input);
     }
-
     else // case 2: discount not yet added
     {
         cout << "\nDoes the customer have a membership? (Y/n): ";
         cin >> input;
 
-        if (input == 'Y' || input == 'y')
-        {
-            cout << "2.5% Membership Discount Applied!\n";
-            membershipDiscount = true;
-        }
-
-        else if (input == 'N' || input == 'n')
-            cout << "Membership Required\n";
-
-        else
-            cout << "Error: Invalid input\nReturning to the main menu";
+        add_member_discount(input);
     }
+}
+
+void void_member_discount(const char input)
+{
+    if (input == 'Y' || input == 'y')
+        cout << "Membership Discount maintained!\n";
+
+    else if (input == 'N' || input == 'n')
+    {
+        cout << "Membership Discount voided!\n";
+        membershipDiscount = false;
+    }
+    else
+        cout << "Error: Invalid input\nReturning to the main menu";
+}
+
+void add_member_discount(const char input)
+{
+    if (input == 'Y' || input == 'y')
+    {
+        cout << "2.5% Membership Discount Applied!\n";
+        membershipDiscount = true;
+    }
+
+    else if (input == 'N' || input == 'n')
+        cout << "Membership Required\n";
+
+    else
+        cout << "Error: Invalid input\nReturning to the main menu";
 }
 
 void apply_voucher_discount()
@@ -168,17 +183,7 @@ void apply_voucher_discount()
         cin >> input;
 
         // options to void the discount given
-        if (input == 'Y' || input == 'y')
-            cout << "Voucher Discount maintained!\n";
-
-        else if (input == 'N' || input == 'n')
-        {
-            cout << "Voucher Discount voided!\n";
-            voucherDiscount = false;
-        }
-
-        else
-            cout << "Error: Invalid input\nReturning to the main menu";
+        void_voucher_discount(input);
     }
     else // case 2: discount not yet added
     {
@@ -197,25 +202,40 @@ void apply_voucher_discount()
     }
 }
 
+void void_voucher_discount(const char input)
+{
+    if (input == 'Y' || input == 'y')
+        cout << "Voucher Discount maintained!\n";
+
+    else if (input == 'N' || input == 'n')
+    {
+        cout << "Voucher Discount voided!\n";
+        voucherDiscount = false;
+        voucherDiscountValue = 0.0;
+    }
+    else
+        cout << "Error: Invalid input\nReturning to the main menu";
+}
+
 void display_final_bill()
 {
-    double total = 0;
-
-    cout << "\nFinal Bill:\n";
-    cout << setw(25) << left << "Product " << setw(5)
+    cout << "\nFinal Bill:\n"
+         << setw(25) << left << "Product " << setw(5)
          << "| Unit Price "
          << "| Quantity "
          << "| Total Cost (Discount Applied)";
+
     cout << "\n--------------------------------------------------------------------------------";
 
     // calculate and prints out the products and price
 
     //  to reduce lookups; "auto const&" means reference read-only variable
-    auto const &products_count = products.size();
+    const auto &products_count = products.size();
+    double total = 0;
 
     for (int index = 0; index < products_count; index++)
     {
-        double const finalPrice = priceAfterDiscount(index);
+        const double finalPrice = price_after_discount(index);
 
         cout << "\n"
              << setw(25) << left << products.at(index).name
@@ -236,38 +256,40 @@ void display_final_bill()
         cout << "\nVoucher Discount: " << fixed << setprecision(2) << voucherDiscountValue * 100 << "%";
 
     cout << "\n--------------------------------------------------------------------------------";
+
+    // prints out total
     cout << "\nGrand Total Amount Due: $" << fixed << setprecision(2) << total;
 }
 
-double priceAfterDiscount(int const index) // highly nested, I don't know how to reduce this
+double price_after_discount(const int index)
 {
     //  to reduce lookups; "auto const&" means reference read-only variable
-    auto const &quantity = products.at(index).quantity;
+    const auto &quantity = products.at(index).quantity;
+    double discount;
 
-    double result;
+    // case 1: no membership discount
+    if (membershipDiscount == false)
 
-    if (membershipDiscount == false) // case 1: no membership discount
-    {
         if (quantity > 10)
-            result = products.at(index).unitPrice * quantity * (0.9 - voucherDiscountValue);
+            discount = 0.90 - voucherDiscountValue;
 
         else if (quantity >= 5)
-            result = products.at(index).unitPrice * quantity * (0.95 - voucherDiscountValue);
+            discount = 0.95 - voucherDiscountValue;
 
         else
-            result = products.at(index).unitPrice * quantity * (1.0 - voucherDiscountValue);
-    }
+            discount = 1.00 - voucherDiscountValue;
 
-    else // case 2: membership discount applied
-    {
+    // case 2: membership discount applied
+    else
+
         if (quantity > 10)
-            result = products.at(index).unitPrice * quantity * (0.875 - voucherDiscountValue);
+            discount = 0.875 - voucherDiscountValue;
 
         else if (quantity >= 5)
-            result = products.at(index).unitPrice * quantity * (0.925 - voucherDiscountValue);
+            discount = 0.925 - voucherDiscountValue;
 
         else
-            result = products.at(index).unitPrice * quantity * (0.975 - voucherDiscountValue);
-    }
-    return result;
+            discount = 0.975 - voucherDiscountValue;
+
+    return products.at(index).unitPrice * quantity * discount;
 }

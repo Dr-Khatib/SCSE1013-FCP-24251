@@ -2,6 +2,7 @@
 AQIL DZARFAN BIN ASRUL SHARAFF
 "If it works, don't touch it"
 */
+//after learning a bit more c++, this is my improved version
 
 #include <iostream>
 #include <vector>
@@ -10,21 +11,21 @@ using namespace std;
 
 int main()
 {
-    // declare vector to store products
-    vector<string> ProductName;
-    vector<double> UnitPrice; // I use double for precision
-    vector<int> QuantityPurchased;
+    struct product
+    {
+        string name;
+        double unit_price{};
+        int quantity{};
+    };
+    vector<product> products;
+
+    product product;
 
     bool menu = true; // condition to allow the program to repeat
     double total = 0.0;
 
     int choice;
     int index;
-    double PriceAfterDisc;
-
-    string stringinput;
-    int intinput;
-    double doubleinput;
 
     while (menu == true)
     {
@@ -41,26 +42,23 @@ int main()
         case 1:
             // gather product data
             cout << "\nEnter Product Name: ";
-            cin >> stringinput; // who cares about error handling
+            cin >> product.name;
 
             cout << "Enter Unit Price: ";
-            cin >> doubleinput;
+            cin >> product.unit_price;
 
             cout << "Enter Quantity Purchased: ";
-            cin >> intinput;
+            cin >> product.quantity;
 
             // inform the customer if the item elegible for discounts
-            if (intinput > 10)
+            if (product.quantity > 10)
                 cout << "Product added with a 10%" << " discount" << endl;
 
-            else if (intinput >= 5)
+            else if (product.quantity >= 5)
                 cout << "Product added with a 5%" << " discount" << endl;
 
             // store the gathered data into vector
-            ProductName.push_back(stringinput);
-            UnitPrice.push_back(doubleinput);
-            QuantityPurchased.push_back(intinput);
-
+            products.emplace_back(product);
             break;
 
         case 2:
@@ -74,26 +72,31 @@ int main()
             cout << "\n--------------------------------------------------------------------------------";
 
             // this for-statement is used calculate, total(discount applied) and print all of the product
-            for (index = 0; index < ProductName.size(); index++)
+            const auto &product_count = products.size();
+            for (index = 0; index < product_count; index++)
             {
+                const int &quantity = products.at(index).quantity;
+                double discount;
 
-                if (QuantityPurchased.at(index) > 10)
-                    PriceAfterDisc = QuantityPurchased.at(index) * UnitPrice.at(index) * 0.9;
+                if (quantity > 10)
+                    discount = 0.9;
 
-                else if (QuantityPurchased.at(index) >= 5)
-                    PriceAfterDisc = QuantityPurchased.at(index) * UnitPrice.at(index) * 0.95;
+                else if (quantity >= 5)
+                    discount = 0.95;
 
                 else
-                    PriceAfterDisc = QuantityPurchased.at(index) * UnitPrice.at(index);
+                    discount = 1.0;
 
-                total += PriceAfterDisc;
+                const double nett_price = products.at(index).unit_price * quantity * discount;
+
+                total += nett_price;
 
                 // another fancy output formatting
                 cout << "\n"
-                     << setw(25) << left << ProductName.at(index)
-                     << "| $" << setw(10) << fixed << setprecision(2) << UnitPrice.at(index)
-                     << "| " << setw(9) << QuantityPurchased.at(index)
-                     << "| $" << PriceAfterDisc;
+                     << setw(25) << left << products.at(index).name
+                     << "| $" << setw(10) << fixed << setprecision(2) << products.at(index).unit_price
+                     << "| " << setw(9) << quantity
+                     << "| $" << nett_price;
             }
 
             cout << "\n--------------------------------------------------------------------------------";
