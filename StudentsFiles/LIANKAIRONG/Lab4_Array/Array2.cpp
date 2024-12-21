@@ -207,38 +207,33 @@ int totalBronze(int record[][country][typeMedal],int CYear){
 }
 
 void summaryForAllYear(int record[][country][typeMedal], int existYear[]) {
-    int totalMedals[country] = {0};  // Store total medals for each country
-    int highestGold = 0;            // Highest gold medals in any year for any country
-    int yearWithHighestGold = 0;    // Year corresponding to highest gold medals
-    int countryWithHighestGold = 0; // Country corresponding to highest gold medals
-
-    // Loop through all possible years
+    int totalMedals[country] = {0};  
+    int highestGold = 0;           
+    int yearWithHighestGold = 0;  
+    int countryWithHighestGold = 0;
+    
     for (int j = 0; j < maxYear; j++) {
         if (!existYear[j]) {
-            continue; // Skip years with no data
+            continue;
         }
 
-        // Process the data for this year
+       
         for (int i = 0; i < country; i++) {
-            // Add the total medals for each country
             totalMedals[i] += record[j][i][0] + record[j][i][1] + record[j][i][2];
 
-            // Check if this country has the highest gold in this year
             if (record[j][i][0] > highestGold) {
                 highestGold = record[j][i][0];
                 yearWithHighestGold = j;
-                countryWithHighestGold = i + 1; // +1 to match human-readable numbering
+                countryWithHighestGold = i + 1; 
             }
         }
     }
 
-    // Display summary
     cout << "Summary for all years:" << endl;
     cout << setw(15) << left << "Country" << "|"
          << setw(15) << "Total Medals" << "|" << endl;
     cout << string(32, '-') << endl;
 
-    // Print total medals for each country
     for (int i = 0; i < country; i++) {
         cout << setw(15) << ("Country" + to_string(i + 1)) << "|"
              << setw(15) << totalMedals[i] << "|" << endl;
