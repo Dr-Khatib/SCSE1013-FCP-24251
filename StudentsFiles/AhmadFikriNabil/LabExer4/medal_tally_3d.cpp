@@ -200,6 +200,7 @@ void displayBestYearRecord(int medals[][maxYear][maxMedal]) {
     int bestYear = 0, bestGold = 0;
     int actualYear = 0;
     int totalMedal = 0;
+    int bestCountry = 0;
 
     cout << "\nBest Record";
     for (i = 0; i < maxCountry; i++) {
@@ -207,18 +208,20 @@ void displayBestYearRecord(int medals[][maxYear][maxMedal]) {
            if (medals[i][j][0] > bestGold) {
                 bestGold = medals[i][j][0];
                 bestYear = j;
+                bestCountry = i;
            }
         }
-        totalMedal = medals[i][bestYear][0] + medals[i][bestYear][1] + medals[i][bestYear][2];
-        if (bestYear == 0)
-            actualYear = 2020;
-        else if (bestYear == 1)
-            actualYear = 2022;
-        else 
-            actualYear = 2024;
-        cout << "\nCountry " << i+1 << " : Year " <<  actualYear;
-        cout << "\nGold: " << medals[i][bestYear][0] << ", Silver: " << medals[i][bestYear][1] << ", Bronze: " << medals[i][bestYear][2] << ", Total Medals: " << totalMedal;
     }
+    totalMedal = medals[bestCountry][bestYear][0] + medals[bestCountry][bestYear][1] + medals[bestCountry][bestYear][2];
+    if (bestYear == 0)
+        actualYear = 2020;
+    else if (bestYear == 1)
+        actualYear = 2022;
+    else 
+        actualYear = 2024;
+
+    cout << "\nCountry " << bestCountry + 1 << " : Year " <<  actualYear;
+    cout << "\nGold: " << medals[bestCountry][bestYear][0] << ", Silver: " << medals[bestCountry][bestYear][1] << ", Bronze: " << medals[bestCountry][bestYear][2] << ", Total Medals: " << totalMedal;
 
     cout << "\n\n";
 }
