@@ -152,5 +152,5 @@ void total_bronze()
         total_medal += medal[i][2];
     }
 
-    cout << "The highest number of gold medal is " << total_medal << endl;
+    cout << "Total number of bronze medal win is  " << total_medal << endl;
 }
