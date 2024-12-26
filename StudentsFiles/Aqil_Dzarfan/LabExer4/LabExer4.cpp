@@ -9,7 +9,7 @@ int main()
 
     int totalMedalCountry3 = 0;
     int maxNumMedal = 0;
-    int minNumMedal = INT_MAX;
+    int minNumMedal = 1000;
     int maxNumOfGold = 0;
     int totalBronze = 0;
 
