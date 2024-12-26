@@ -1,0 +1,119 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+const int row = 4, col = 3, year = 5;
+int medal[year][row][col];
+int compare = medal[0][0][0];
+int choice, choice_country, choice_medal, choice_year, num;
+int highestRow, highestCol, highestYear;
+int sum_2020=0, sum_2021=0, sum_2022=0, sum_2023=0, sum_2024=0;
+
+void best_record();
+
+int main()
+{
+    do
+    {
+        cout << "Medal data" << endl;
+        cout << "1. Add data" << endl;
+        cout << "2. Display data" << endl;
+        cout << "Enter you choice: " << endl;
+        cin >> choice;
+
+        if( choice == 1)
+        {  
+            if(choice <= 4)        
+            {  
+                cout << "Select country" << endl;
+                cout << "1. Country 1" << endl;
+                cout << "2. Country 2" << endl;
+                cout << "3. Country 3" << endl;
+                cout << "4. Country 4" << endl;
+                cout << "Enter country choice: " << endl;
+                cin >> choice_country;
+            }
+
+            else
+            {
+                cout << "Enter a valid number." << endl;
+            }
+
+            if (choice <=3)
+            {
+                cout << "Select medal" << endl;
+                cout << "1. Gold" << endl;
+                cout << "2. Silver" << endl;
+                cout << "3. Bronze" << endl;
+                cout << "Enter medal choice: " << endl;
+                cin >> choice_medal;
+            }
+
+            else
+            {
+                cout << "Enter a valid number." << endl;
+            }
+
+            if(choice <= 5)        
+            {  
+                cout << "Select year" << endl;
+                cout << "1. 2020" << endl;
+                cout << "2. 2021" << endl;
+                cout << "3. 2022" << endl;
+                cout << "4. 2023" << endl;
+                cout << "5. 2024" << endl;
+                cout << "Enter country choice: " << endl;
+                cin >> choice_year;
+            }
+
+            else
+            {
+                cout << "Enter a valid number." << endl;
+            }
+    
+            if(choice_country <= 4 && choice_medal <=3)
+            {
+                cout << "Number of medal won: " << endl;
+                cin >> num;
+                medal[choice_year-1][choice_country-1][choice_medal-1]=num;
+            }
+
+            else
+            {
+                cout << "Please choose numbers within the given choice" << endl;
+            }
+        }
+
+        else if(choice == 2)
+        {
+            break;
+        }
+
+        else
+        {
+            cout << "Invalid number." << endl;
+        }
+    }
+    while(true);
+
+    best_record();
+    return 0;
+}
+
+void best_record()
+{
+    for( int k =0; k < year; k++)
+    for( int i =0; i < row; i++)
+    for( int j =0; j < col; j++)
+    {
+        if(medal[k][i][j] > compare)
+        {
+            compare = medal [k][i][j];
+            highestRow = i;
+            highestCol = j;
+            highestYear = k;
+        }
+    } 
+
+    cout << "The best record is " << compare << "in " << highestCol + 1 << " from country " << highestRow + 1 << " in the year " << highestYear + 2020 << endl;
+}
