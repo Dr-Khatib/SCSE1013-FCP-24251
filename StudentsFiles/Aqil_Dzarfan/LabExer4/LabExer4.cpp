@@ -8,45 +8,45 @@ int main()
     const string medalType[3] = {"Gold", "Silver", "Bronze"};
 
     int totalMedalCountry3 = 0;
-    int maxNumMedal = 0;
-    int minNumMedal = 1000;
-    int maxNumOfGold = 0;
+    int maxMedal = 0;
+    int minMedal = 1000;
+    int maxGold = 0;
     int totalBronze = 0;
 
     int temp;
 
-    for (int index1 = 0; index1 < 4; index1++)
+    for (int x = 0; x < 4; x++)
     {
-        cout << "Country " << index1 + 1 << endl;
-        for (int index2 = 0; index2 < 3; index2++)
+        cout << "Country " << x + 1 << "\n";
+        for (int y = 0; y < 3; y++)
         {
             int medal[4][3];
             
-            cout << "Enter number of " << medalType[index2] << " medal: ";
+            cout << "Enter number of " << medalType[y] << " medal: ";
             cin >> temp;
 
-            if (index1 == 2)
+            if (x == 2)
                 totalMedalCountry3 += temp;
 
-            if (temp > maxNumMedal)
-                maxNumMedal = temp;
+            if (temp > maxMedal)
+                maxMedal = temp;
 
-            if (temp < minNumMedal)
-                minNumMedal = temp;
+            if (temp < minMedal)
+                minMedal = temp;
 
-            if (index2 == 0 && temp > maxNumOfGold)
-                maxNumOfGold = temp;
+            if (y == 0 && temp > maxGold)
+                maxGold = temp;
 
-            if (index2 == 2)
+            if (y == 2)
                 totalBronze += temp;
 
-            medal[index1][index2] = temp;
+            medal[x][y] = temp;
         }
     }
 
     cout << "\nTotal number of medal won by country 3 is " << totalMedalCountry3
-         << "\nThe largest number of medal won is " << maxNumMedal
-         << "\nThe smallest number of medal won is " << minNumMedal
-         << "\nThe highest number of gold medal won is " << maxNumOfGold
+         << "\nThe largest number of medal won is " << maxMedal
+         << "\nThe smallest number of medal won is " << minMedal
+         << "\nThe highest number of gold medal won is " << maxGold
          << "\nThe total number of bronze won is " << totalBronze;
 }

@@ -1,110 +1,95 @@
 //wip medal tracker
-
 #include <iostream>
 #include <vector>
 using namespace std;
 
-struct 
+struct Medal
+{
+    int year;
+    int medal[4][3]{};
+};
+
+struct Hlight
 {
     int totalMedalCountry3{};
-    int maxNumMedal{};
-    int minNumMedal = INT_MAX;
-    int maxNumOfGold{};
+    int maxMedal{};
+    int minMedal = INT_MAX;
+    int maxGold{};
     int totalBronze{};
 };
-vector<medal> yearHighlights;
 
-struct medalType
-{
-    int gold;
-    int silver;
-    int bronze;
-};
-vector<medalType> medalData;
+vector<Medal> medalVect;
+vector<Hlight> hlightVect;
 
-
-void addRecord();
-void dispPastRecord();
+void add_records();
+void disp_records();
 
 int main()
 {
     bool menu = true;
-    int choice;
+    int input;
 
-    while (menu != false)
+    while (menu == true)
     {
-        cout << "Medal Tracker" 
-             << "\n1. Add new record" 
-             << "\n2. View past record and exit" 
-             << "\nEnter your choice: ";
-        cin >> choice;
-
-        switch(choice)
+        cout << "Medal Tracker 3000\n1. Add records\n2. Display previous records and exit\nEnter your choice: ";
+        cin >> input;
+        
+        switch (input)
         {
             case 1:
-                addRecord();
+                add_records();
                 break;
-            
+
             case 2:
-                dispPastRecord();
+                disp_records();
                 menu = false;
                 break;
-            
+
             default:
-                cout << "Invalid number! Please try again\n\n";
+                cout << "Invalid input";
+                break;
         }
     }
 }
 
-void addRecord()
+void add_records()
 {
+    const string medalType[3] = {"Gold", "Silver", "Bronze"};
+    Hlight hlight;
+    Medal medal;
+    int temp;
     
+    cout << "Enter year: ";
+    cin >> medal.year;
 
-    for (int index1 = 0; index1 < 4; index1++)
+    for (int x = 0; x < 4; x++)
     {
-        cout << "Country " << index1 + 1 << endl;
+        cout << "Country " << x + 1 << "\n";
         
-        for (int index2 = 0; index2 < 3; index2++)
+        for (int y = 0; y < 3; y++)
         {
-            medal medalobj;
-            int gold;
-            int silver;
-            int bronze;
-            
-            cout << "Enter number of gold medal: ";
-            cin >> gold;
-
-            cout << "Enter number of silver medal: ";
-            cin >> silver;
-
-            cout << "Enter number of bronze medal: ";
+            cout << "Enter number of " << medalType[y] << " medal: ";
             cin >> temp;
 
-            if (index1 == 2)
-                totalMedalCountry3 += temp;
+            if (x == 2)
+                hlight.totalMedalCountry3 += temp;
 
-            if (temp > maxNumMedal)
-                maxNumMedal = temp;
+            if (temp > hlight.maxMedal)
+                hlight.maxMedal = temp;
 
-            if (temp < minNumMedal)
-                minNumMedal = temp;
+            if (temp < hlight.minMedal)
+                hlight.minMedal = temp;
 
-            if (index2 == 0 && temp > maxNumOfGold)
-                maxNumOfGold = temp;
+            if (y == 0 && temp > hlight.maxGold)
+                hlight.maxGold = temp;
 
-            if (index2 == 2)
-                totalBronze += temp;
+            if (y == 2)
+                hlight.totalBronze += temp;
 
-            medal[index1][index2] = temp;
+            medal.medal[x][y] = temp;
         }
     }
-}
 
-void dispPastRecord()
-{
-    cout << "\nTotal number of medal won by country 3 is " << totalMedalCountry3
-         << "\nThe largest number of medal won is " << maxNumMedal
-         << "\nThe smallest number of medal won is " << minNumMedal
-         << "\nThe highest number of gold medal won is " << maxNumOfGold
-         << "\nThe total number of bronze won is " << totalBronze;
+    medalVect.emplace_back(medal);
+    hlightVect.emplace_back(hlight);
 }
