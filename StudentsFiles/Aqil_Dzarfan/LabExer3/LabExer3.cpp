@@ -72,7 +72,7 @@ int main()
             break;
 
         default:
-            cout << "\nInvalid number. Please Try Again" << endl;
+            cout << "\nInvalid number. Please Try Again\n";
         }
     }
     return 0;
@@ -225,7 +225,7 @@ void display_final_bill()
          << "| Quantity "
          << "| Total Cost (Discount Applied)";
 
-    cout << "\n--------------------------------------------------------------------------------";
+    cout << "\n" << string (80, '-');
 
     // calculate and prints out the products and price
 
@@ -246,7 +246,7 @@ void display_final_bill()
         total += finalPrice;
     }
 
-    cout << "\n--------------------------------------------------------------------------------";
+    cout << "\n" << string (80, '-');
 
     // prints out the discounts given
     if (membershipDiscount != false)
@@ -255,7 +255,7 @@ void display_final_bill()
     if (voucherDiscount != false)
         cout << "\nVoucher Discount: " << fixed << setprecision(2) << voucherDiscountValue * 100 << "%";
 
-    cout << "\n--------------------------------------------------------------------------------";
+    cout << "\n" << string (80, '-');
 
     // prints out total
     cout << "\nGrand Total Amount Due: $" << fixed << setprecision(2) << total;
