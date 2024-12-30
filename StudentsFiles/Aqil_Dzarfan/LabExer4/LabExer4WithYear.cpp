@@ -82,10 +82,6 @@ void add_records()
             medal.medal[x][y] = temp;
         }
     }
-    medalVect.emplace_back(medal);
-}
 
-void disp_records()
-{
-    cout << "skibidi";
+    medalVect.emplace_back(medal);
 }
