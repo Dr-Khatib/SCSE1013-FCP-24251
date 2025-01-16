@@ -1,5 +1,6 @@
 // wip medal tracker
 #include <iostream>
+#include <iomanip>
 #include <vector>
 using namespace std;
 
@@ -9,7 +10,7 @@ struct Medal
     int medal[4][3]{};
     int totalMedalCountry3{};
     int maxMedal{};
-    int minMedal = INT_MAX;
+    int minMedal = 1000;
     int maxGold{};
     int totalBronze{};
 };
@@ -17,6 +18,7 @@ vector<Medal> medalVect;
 
 void add_records();
 void disp_records();
+void disp_country_medal();
 
 int main()
 {
@@ -40,10 +42,11 @@ int main()
             break;
 
         default:
-            cout << "Invalid input";
+            cout << "Invalid input. Please Try Again\n";
             break;
         }
     }
+    return 0;
 }
 
 void add_records()
@@ -87,5 +90,35 @@ void add_records()
 
 void disp_records()
 {
-    cout << "skibidi";
+    if (medalVect.size() == 0)
+    {
+        cout << "No Record Exist !";
+        exit;
+    }
+
+    for (int index = 0; index < medalVect.size(); index++)
+    {
+        cout << "Year " << medalVect.at(index).year << "\n";
+        cout << string(54, '-');
+
+        cout << "Country"
+             << setw(10) << "Gold"
+             << setw(10) << "Silver"
+             << setw(10) << "Bronze";
+        disp_country_medal(index);
+        cout << string(54, '-');
+    }
+}
+
+void disp_country_medal(int index)
+{
+    for (int x = 0; x < 4; x++)
+    {
+        cout << x;
+        for (int y = 0; y < 3; y++)
+        {
+            cout << setw(10) << left << medalVect.at(index).medal[x][y];
+        }
+        cout << "\n";
+    }
 }
