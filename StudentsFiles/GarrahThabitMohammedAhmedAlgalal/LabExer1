@@ -5,7 +5,7 @@ using namespace std;
 
 int main() 
  {
-    string FullName;
+    string FullName; 
     int BirthYear;
     const int CurrentYear = 2024;
 
