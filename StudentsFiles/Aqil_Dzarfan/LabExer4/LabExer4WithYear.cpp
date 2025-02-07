@@ -22,8 +22,8 @@ void disp_country_medal();
 
 int main()
 {
-    bool menu = true;
     int input;
+    bool menu = true;
 
     while (menu == true)
     {
