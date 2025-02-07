@@ -14,22 +14,22 @@ using namespace std;
 // struct is used to group multiple data in one vector
 struct Product
 {
-    string name;
     double unitPrice{};
     int quantity{};
+    string name;
 };
 vector<Product> products;
 
 // function prototypes
 void add_product();
-void inform_discount(int quantity);
+void inform_discount(int);
 void apply_membership_discount();
-void void_member_discount(char input);
-void add_member_discount(char input);
+void void_member_discount(char);
+void add_member_discount(char);
 void apply_voucher_discount();
-void void_voucher_discount(char input);
+void void_voucher_discount(char);
 void display_final_bill();
-double price_after_discount(int index);
+double price_after_discount(int);
 
 bool membershipDiscount = false; // false means no discount
 bool voucherDiscount = false;
@@ -38,8 +38,8 @@ double voucherDiscountValue = 0.0;
 
 int main()
 {
-    bool menu = true;
     int choice;
+    bool menu = true;
 
     while (menu == true)
     {
@@ -127,7 +127,7 @@ void apply_membership_discount()
     char input;
 
     // check if the discount is already added
-    if (membershipDiscount != false) // case 1: discount added
+    if (membershipDiscount == true) // case 1: discount added
     {
         cout << "Membership Discount Already Added!\n Do you wish to void Membership Discount? (Y/n): ";
         cin >> input;
@@ -176,7 +176,7 @@ void add_member_discount(const char input)
 void apply_voucher_discount()
 {
     // check if the discount is already added
-    if (voucherDiscount != false) // case 1: discount added
+    if (voucherDiscount == true) // case 1: discount added
     {
         char input;
         cout << "Voucher Discount Already Added!\n Do you wish to void Voucher Discount? (Y/n): ";
@@ -225,13 +225,12 @@ void display_final_bill()
          << "| Quantity "
          << "| Total Cost (Discount Applied)";
 
-    cout << "\n" << string (80, '-');
+    cout << "\n"
+         << string(80, '-');
 
     // calculate and prints out the products and price
-
-    //  to reduce lookups; "auto const&" means reference read-only variable
-    const auto &products_count = products.size();
     double total = 0;
+    const int &products_count = products.size(); //  to reduce lookups
 
     for (int index = 0; index < products_count; index++)
     {
@@ -246,7 +245,8 @@ void display_final_bill()
         total += finalPrice;
     }
 
-    cout << "\n" << string (80, '-');
+    cout << "\n"
+         << string(80, '-');
 
     // prints out the discounts given
     if (membershipDiscount != false)
@@ -255,7 +255,8 @@ void display_final_bill()
     if (voucherDiscount != false)
         cout << "\nVoucher Discount: " << fixed << setprecision(2) << voucherDiscountValue * 100 << "%";
 
-    cout << "\n" << string (80, '-');
+    cout << "\n"
+         << string(80, '-');
 
     // prints out total
     cout << "\nGrand Total Amount Due: $" << fixed << setprecision(2) << total;
@@ -263,9 +264,8 @@ void display_final_bill()
 
 double price_after_discount(const int index)
 {
-    //  to reduce lookups; "auto const&" means reference read-only variable
-    const auto &quantity = products.at(index).quantity;
     double discount;
+    const int &quantity = products.at(index).quantity; //  to reduce lookups
 
     // case 1: no membership discount
     if (membershipDiscount == false)
@@ -283,13 +283,13 @@ double price_after_discount(const int index)
     else
 
         if (quantity > 10)
-            discount = 0.875 - voucherDiscountValue;
+        discount = 0.875 - voucherDiscountValue;
 
-        else if (quantity >= 5)
-            discount = 0.925 - voucherDiscountValue;
+    else if (quantity >= 5)
+        discount = 0.925 - voucherDiscountValue;
 
-        else
-            discount = 0.975 - voucherDiscountValue;
+    else
+        discount = 0.975 - voucherDiscountValue;
 
     return products.at(index).unitPrice * quantity * discount;
 }
