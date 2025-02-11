@@ -31,17 +31,16 @@ void void_voucher_discount(char);
 void display_final_bill();
 double price_after_discount(int);
 
+double voucherDiscountValue = 0.0;
 bool membershipDiscount = false; // false means no discount
 bool voucherDiscount = false;
-
-double voucherDiscountValue = 0.0;
 
 int main()
 {
     int choice;
     bool menu = true;
 
-    while (menu == true)
+    while (menu)
     {
         // main menu
         cout << "\nCashier System\n"
@@ -84,7 +83,8 @@ void add_product()
 
     // gather product data
     cout << "\nEnter Product Name: ";
-    cin >> product.name;
+    cin.ignore();
+    getline(cin, product.name);
 
     cout << "Enter Unit Price: ";
     cin >> product.unitPrice;
@@ -127,7 +127,7 @@ void apply_membership_discount()
     char input;
 
     // check if the discount is already added
-    if (membershipDiscount == true) // case 1: discount added
+    if (membershipDiscount) // case 1: discount added
     {
         cout << "Membership Discount Already Added!\n Do you wish to void Membership Discount? (Y/n): ";
         cin >> input;
@@ -146,10 +146,10 @@ void apply_membership_discount()
 
 void void_member_discount(const char input)
 {
-    if (input == 'Y' || input == 'y')
+    if (tolower(input) == 'y')
         cout << "Membership Discount maintained!\n";
 
-    else if (input == 'N' || input == 'n')
+    else if (tolower(input) == 'n')
     {
         cout << "Membership Discount voided!\n";
         membershipDiscount = false;
@@ -160,13 +160,13 @@ void void_member_discount(const char input)
 
 void add_member_discount(const char input)
 {
-    if (input == 'Y' || input == 'y')
+    if (tolower(input) == 'y')
     {
         cout << "2.5% Membership Discount Applied!\n";
         membershipDiscount = true;
     }
 
-    else if (input == 'N' || input == 'n')
+    else if (tolower(input) == 'n')
         cout << "Membership Required\n";
 
     else
@@ -176,7 +176,7 @@ void add_member_discount(const char input)
 void apply_voucher_discount()
 {
     // check if the discount is already added
-    if (voucherDiscount == true) // case 1: discount added
+    if (voucherDiscount) // case 1: discount added
     {
         char input;
         cout << "Voucher Discount Already Added!\n Do you wish to void Voucher Discount? (Y/n): ";
@@ -204,10 +204,10 @@ void apply_voucher_discount()
 
 void void_voucher_discount(const char input)
 {
-    if (input == 'Y' || input == 'y')
+    if (tolower(input) == 'y')
         cout << "Voucher Discount maintained!\n";
 
-    else if (input == 'N' || input == 'n')
+    else if (tolower(input) == 'n')
     {
         cout << "Voucher Discount voided!\n";
         voucherDiscount = false;
@@ -230,7 +230,7 @@ void display_final_bill()
 
     // calculate and prints out the products and price
     double total = 0;
-    const int &products_count = products.size(); //  to reduce lookups
+    const int &products_count = static_cast<int>(products.size()); //  to reduce lookups
 
     for (int index = 0; index < products_count; index++)
     {
@@ -249,14 +249,15 @@ void display_final_bill()
          << string(80, '-');
 
     // prints out the discounts given
-    if (membershipDiscount != false)
+    if (membershipDiscount)
         cout << "\nMembership Discount: 2.50%";
 
-    if (voucherDiscount != false)
+    if (voucherDiscount)
         cout << "\nVoucher Discount: " << fixed << setprecision(2) << voucherDiscountValue * 100 << "%";
 
-    cout << "\n"
-         << string(80, '-');
+    if (voucherDiscount || membershipDiscount)
+        cout << "\n"
+             << string(80, '-');
 
     // prints out total
     cout << "\nGrand Total Amount Due: $" << fixed << setprecision(2) << total;
@@ -268,8 +269,8 @@ double price_after_discount(const int index)
     const int &quantity = products.at(index).quantity; //  to reduce lookups
 
     // case 1: no membership discount
-    if (membershipDiscount == false)
-
+    if (!membershipDiscount)
+    {
         if (quantity > 10)
             discount = 0.90 - voucherDiscountValue;
 
@@ -278,18 +279,19 @@ double price_after_discount(const int index)
 
         else
             discount = 1.00 - voucherDiscountValue;
+    }
 
     // case 2: membership discount applied
     else
-
+    {
         if (quantity > 10)
-        discount = 0.875 - voucherDiscountValue;
+            discount = 0.875 - voucherDiscountValue;
 
-    else if (quantity >= 5)
-        discount = 0.925 - voucherDiscountValue;
+        else if (quantity >= 5)
+            discount = 0.925 - voucherDiscountValue;
 
-    else
-        discount = 0.975 - voucherDiscountValue;
-
+        else
+            discount = 0.975 - voucherDiscountValue;
+    }
     return products.at(index).unitPrice * quantity * discount;
 }
